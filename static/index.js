@@ -23,6 +23,24 @@ function load_and_plot(filename) {
   });
 }
 
+function load_and_plot_and_cluster(filename, clusters) {
+  d3.csv(`static/datasets/${filename}`, d3.autoType).then((data) => {
+    console.log("data", data);
+    svg
+      .selectAll("circle")
+      .data(data)
+      .join("circle")
+      .attr("r", 8)
+      .attr("fill", "#333")
+      .attr("stroke", "#eee")
+      .attr("stroke-width", 1)
+      .attr("cx", (d) => d.x * 20 + 50)
+      .attr("cy", (d) => d.y * 20 + 250);
+  });
+}
+
+
+
 // utilities
 async function post(url = "", data = {}) {
   const response = await fetch(url, {
